@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Modal, Linking, Platform, Alert, Image, ActivityIndicator, FlatList} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Modal, Linking, Platform, Alert, Image, ActivityIndicator, FlatList, StatusBar} from 'react-native';
 import Constants from 'expo-constants';
 import MapView, { Marker, Polyline, Callout, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -9,7 +9,7 @@ import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import * as Device from 'expo-device';
 import * as StoreReview from 'expo-store-review';
-import {AdMobBanner, requestPermissionsAsync, getPermissionsAsync} from 'expo-ads-admob';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 // You can import from local files
 import AssetExample from './components/AssetExample';
@@ -227,16 +227,6 @@ export default function App() {
     )
   }
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await requestPermissionsAsync();
-      console.log(status)
-      if (status === 'granted') {
-        console.log('Yay! I have user permission to track data');
-      }
-    })();
-  }, []);
-
   async function checkusagetime() {
     try {
         const storestring = StoreReview.storeUrl()
@@ -265,6 +255,11 @@ export default function App() {
   },[])
 
   return (
+    <>
+      <StatusBar
+          animated={true}
+          backgroundColor="#24E2F0"
+          barStyle={'dark-content'} />
     <View style={styles.container}>
 
       <Modal visible={filtermodal}>
@@ -299,12 +294,17 @@ export default function App() {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{alignItems: "center", backgroundColor: "white"}}> 
-            <AdMobBanner
-                  bannerSize='largeBanner'
-                  adUnitID= {AdMobID_Banner}
-                  servePersonalizedAds={true} />
-          </View>
+            {(Constants.isDevice) &&
+              <View style={{alignItems: "center", justifyContent: 'center', width: wp(100)}}>
+                <BannerAd
+                  unitId={AdMobID_Banner}
+                  size={BannerAdSize.FULL_BANNER}
+                  requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                  }}
+                />
+              </View>
+                }
         </View>
       </Modal>
 
@@ -401,15 +401,20 @@ export default function App() {
             keyExtractor={(item, index) => item.map_coordinate}
           />
         </View>
-        <View style={{alignItems: "center", backgroundColor: "white"}}> 
-            <AdMobBanner
-                  bannerSize='largeBanner'
-                  adUnitID= {AdMobID_Banner}
-                  servePersonalizedAds={true} />
+        {(Constants.isDevice) &&
+          <View style={{alignItems: "center", justifyContent: 'center', width: wp(100)}}>
+            <BannerAd
+              unitId={AdMobID_Banner}
+              size={BannerAdSize.FULL_BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
           </View>
+            }
       </View>}
     </View>
-
+    </>
     
   );
 }
