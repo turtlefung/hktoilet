@@ -2,7 +2,7 @@
   "expo": {
     "name": "香港廁所地圖",
     "slug": "hktoiletmap",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,7 +21,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.turtlefung.hktoiletmap",
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-9512123199708539~7993701513",
         "googleMapsApiKey": "AIzaSyAX2Z7aRxdNCqgga9YXB0RVhskDwLFUmYw"
       },
       "infoPlist": {
@@ -32,12 +31,11 @@
         "NSLocationAlwaysAndWhenInUsageDescription": "The app accesses your location to find the toilets nearby.",
         "NSLocationWhenInUseUsageDescription": "The app accesses your location to find the toilets nearby.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "The app accesses your location to find the toilets nearby.",
-        "NSLocationAlwaysUsageDescription": "The app accesses your location to find the toilets nearby.",
-        "NSUserTrackingUsageDescription": "The app request your tracking permission for displaying 3rd party ads."
+        "NSLocationAlwaysUsageDescription": "The app accesses your location to find the toilets nearby."
       }
     },
     "android": {
-      "versionCode": 9,
+      "versionCode": 10,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.turtlefung.hktoiletmap",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -46,7 +44,6 @@
       "package": "com.turtlefung.hktoiletmap",
       "permissions": [],
       "config": {
-        "googleMobileAdsAppId": "ca-app-pub-9512123199708539~7359825437",
         "googleMaps": {
           "apiKey": "AIzaSyDbwMrg5J2c3o96uPrE0DR1GrrSmsHvRi8"
         }
@@ -56,13 +53,14 @@
       "favicon": "./assets/favicon.png"
     },
     "description": "",
-    "plugins": [
-      [
-        "expo-ads-admob",
-        {
-          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
-        }
-      ]
-    ]
+    "extra": {
+      "eas": {
+        "projectId": "81fc66b9-f1e7-4807-b22c-e1d938422e07"
+      }
+    }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9512123199708539~7359825437",
+    "ios_app_id": "ca-app-pub-9512123199708539~7993701513"
   }
 }
